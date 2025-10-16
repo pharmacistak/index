@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ãÓÈÍÉ ÅáßÊÑæäíÉ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>ãÓÈÍÉ ÇáÊÓÈíÍ</h1>
+        
+        <div id="counter" class="counter-display">0</div>
+
+        <button id="increment-btn" class="main-btn">ÓÈøÍ</button>
+
+        <button id="reset-btn" class="secondary-btn">ÊÕİíÑ</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+Css
+íÊÍİÙ ÈÇÓã style.css
+
+/* ÊäÓíŞ ÚÇã ááÕİÍÉ */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center; /* ÊæÓíØ ÃİŞí */
+    align-items: center; /* ÊæÓíØ ÚãæÏí */
+    min-height: 100vh; /* ÇÑÊİÇÚ ßÇãá ááÔÇÔÉ */
+    margin: 0;
+    background-color: #f4f4f9; /* ÎáİíÉ İÇÊÍÉ */
+    text-align: center;
+    direction: rtl; /* áÌÚá ÇáäÕ íÈÏÃ ãä Çáíãíä */
+}
+
+/* ÊäÓíŞ ÇáÍÇæíÉ ÇáÑÆíÓíÉ ááÊØÈíŞ */
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #388e3c; /* áæä ÃÎÖÑ Ìãíá */
+    margin-bottom: 20px;
+}
+
+/* ÊäÓíŞ ÚÑÖ ÇáÚÏÇÏ */
+.counter-display {
+    font-size: 5em; /* ÍÌã ßÈíÑ ááÚÏÏ */
+    font-weight: bold;
+    color: #4CAF50; /* áæä ÃÎÖÑ ããíÒ */
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    border: 3px solid #e0e0e0;
+    border-radius: 8px;
+    display: inline-block;
+    min-width: 150px;
+}
+
+/* ÊäÓíŞ ÇáÃÒÑÇÑ */
+.main-btn, .secondary-btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin: 5px;
+}
+
+/* ÒÑ ÇáÊÓÈíÍ ÇáÑÆíÓí */
+.main-btn {
+    background-color: #4CAF50; /* ÃÎÖÑ */
+    color: white;
+    box-shadow: 0 5px 0 #388e3c;
+}
+
+.main-btn:active {
+    background-color: #388e3c;
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #388e3c;
+}
+
+/* ÒÑ ÇáÊÕİíÑ */
+.secondary-btn {
+    background-color: #f44336; /* ÃÍãÑ */
+    color: white;
+    box-shadow: 0 5px 0 #d32f2f;
+}
+
+.secondary-btn:active {
+    background-color: #d32f2f;
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #d32f2f;
+}
+
+Script 
+
+íÊÍİÙ ÈÃÓã script.js
+
+
+// 1. ÊÚÑíİ ÇáãÊÛíÑÇÊ æÇáÚäÇÕÑ
+// ÇáãİÊÇÍ ÇáĞí ÓäÓÊÎÏãå áÍİÙ ÇáŞíãÉ İí ÇáÊÎÒíä ÇáãÍáí
+const STORAGE_KEY = 'tasbeehCount'; 
+const counterDisplay = document.getElementById('counter');
+const incrementBtn = document.getElementById('increment-btn');
+const resetBtn = document.getElementById('reset-btn');
+
+// 2. ÏÇáÉ áÊÍãíá ÇáŞíãÉ ÇáãÍİæÙÉ
+function loadCount() {
+    // ãÍÇæáÉ ÌáÈ ÇáŞíãÉ ãä ÇáÊÎÒíä ÇáãÍáí ÈÇÓÊÎÏÇã ÇáãİÊÇÍ.
+    // localStorage.getItem(key) ÊõÚíÏ ÇáŞíãÉ ßÓáÓáÉ äÕíÉ (string) Ãæ null ÅĞÇ áã ÊÌÏ ÔíÆÇğ.
+    const storedCount = localStorage.getItem(STORAGE_KEY);
+    
+    // ÇáÊÍŞŞ ãä æÌæÏ ŞíãÉ. ÅĞÇ æõÌÏÊ¡ äÍæáåÇ Åáì ÑŞã (parseInt) æäÓÊÎÏãåÇ.
+    // ÅĞÇ áã ÊæÌÏ (Ãæ ßÇäÊ null)¡ äÈÏÃ ãä 0.
+    if (storedCount !== null) {
+        return parseInt(storedCount, 10);
+    }
+    return 0; // ÇáŞíãÉ ÇáÇİÊÑÇÖíÉ ÅĞÇ áã íßä åäÇß ÔíÁ ãÍİæÙ
+}
+
+// 3. ÊÚÑíİ ÇáãÊÛíÑ count æÌÚáå íÍãøá ÇáŞíãÉ ãä ÇáĞÇßÑÉ
+let count = loadCount(); 
+// ÊÍÏíË ÇáÚÑÖ İæÑÇğ ÈÇáŞíãÉ ÇáãÍãáÉ
+counterDisplay.textContent = count; 
+
+// 4. ÏÇáÉ áÊÎÒíä ÇáŞíãÉ ÇáÍÇáíÉ
+function saveCount(value) {
+    // localStorage.setItem(key, value) áÍİÙ ÇáŞíãÉ. 
+    // íÌÈ Ãä Êßæä ÇáŞíãÉ ÇáãÍİæÙÉ (value) ÓáÓáÉ äÕíÉ (string).
+    localStorage.setItem(STORAGE_KEY, value.toString());
+}
+
+// 5. ÏÇáÉ ÒíÇÏÉ ÇáÚÏÇÏ (ÇáãõÚÏøáÉ)
+function incrementCounter() {
+    count++;
+    counterDisplay.textContent = count;
+    // ÇáÎØæÉ ÇáÌÏíÏÉ: ÍİÙ ÇáŞíãÉ ÇáÌÏíÏÉ İí ÇáĞÇßÑÉ ÇáãÍáíÉ
+    saveCount(count); 
+}
+
+// 6. ÏÇáÉ ÊÕİíÑ ÇáÚÏÇÏ (ÇáãõÚÏøáÉ)
+function resetCounter() {
+    count = 0;
+    counterDisplay.textContent = count;
+    // ÇáÎØæÉ ÇáÌÏíÏÉ: ÍİÙ ÇáÕİÑ İí ÇáĞÇßÑÉ ÇáãÍáíÉ
+    saveCount(count); 
+    alert('Êã ÊÕİíÑ ÇáãÓÈÍÉ.');
+}
+
+// 7. ÑÈØ ÇáÏæÇá ÈÇáÃÒÑÇÑ ÚäÏ ÇáÖÛØ ÚáíåÇ
+incrementBtn.addEventListener('click', incrementCounter);
+resetBtn.addEventListener('click', resetCounter);
